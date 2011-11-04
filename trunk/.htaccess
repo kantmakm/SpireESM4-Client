@@ -1,0 +1,9 @@
+# Helicon Ape version 3.0.0.71
+
+RewriteEngine On
+
+RewriteBase 
+RewriteRule ^(\/[a-zA-Z0-9\/\-]+)(\?.*)?$ /index.cfm?path=$1 [PT,QSA,L]
+
+
+
