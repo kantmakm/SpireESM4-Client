@@ -51,15 +51,21 @@
 		</cfif>
 		
 		<!--- can recreate --->
+		<cftry>
 		<cfset lcl.targetimage = requestObject.getVar("machineroot") & "/ui/productimages/" & variables.imageid & '/' & variables.resizefilename & ".jpg">
 		<cfset lcl.imgmgr = createObject("component", "utilities.imagemanipulation").init(requestObject)>
 		<cfif variables.maxh AND variables.maxw>
+	
 			<cfset lcl.imgmgr.resizetomax(lcl.baseimage, variables.maxw, variables.maxh, lcl.targetimage)>
 		<cfelseif variables.maxh OR variables.maxw>
 			<cfset lcl.imgmgr.resize(lcl.baseimage, iif(variables.maxw EQ 0, DE(""), 'variables.maxw'), iif(variables.maxh EQ 0,DE(""), 'variables.maxh'), lcl.targetimage)>
 		<cfelse>
 			<cfthrow message="need min width or height for image #variables.imageid#">
 		</cfif>
+			<cfcatch>
+				<cfreturn false>
+			</cfcatch>
+		</cftry>
 		<cfreturn true>
 	</cffunction>
 	
