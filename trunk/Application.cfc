@@ -3,7 +3,7 @@
 	hint=''>
 
 	<cfscript>
-		This.name="charterclient";
+		This.name="spireESM4Client";
 		This.applicationtimeout = CreateTimeSpan(2, 0, 0, 0);
 		This.clientmanagement = false;
 		this.clientstorage = "none";

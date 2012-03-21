@@ -22,7 +22,7 @@
 		<!--- link patterns --->
 		<cfset variables.linkpattern = '<a {linkclass} href="{link}">{linkstring}</a>&nbsp;&nbsp;'>
 		<cfset variables.onlinkpattern = '<span class="blockHighlight">{linkstring}</span>&nbsp;&nbsp;'>
-		<cfset variables.wrappattern = '<div id="julio" class="pageing">{contents}</div>'>
+		<cfset variables.wrappattern = '<div class="pageing">{contents}</div>'>
 		<cfset variables.prevpattern = '<a {linkclass} href="{linkVeryFirst}" title="First Page"><img src="/ui/images/arrowleftdouble.png" alt="First Page" /></a><a {linkclass} href="{link}" title="Previous Page"><img src="/ui/images/arrowleft.png" alt="Previous Page" /></a>&nbsp;&nbsp;&nbsp;'>
 		<cfset variables.onprevpattern = ''><!--- <a {linkclass} href="{link}">[Prev]</a>'> --->
 		<cfset variables.nextpattern = '&nbsp;&nbsp;&nbsp;<a {linkclass} href="{link}" title="Next Page"><img src="/ui/images/arrowright.png" alt="Next Page" /></a><a {linkclass} href="{linkVeryLast}" title="Last Page"><img src="/ui/images/arrowrightdouble.png" alt="Last Page" /></a>'>
