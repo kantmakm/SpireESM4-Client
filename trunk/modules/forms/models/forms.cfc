@@ -64,8 +64,7 @@
 	</cffunction>
 	
 	<cffunction name="processFormSubmission" returntype="struct">		
-		<cfargument name="formname" required="no" type="string" default="Form">	
-		
+		<cfargument name="formname" required="no" type="string" default="Form">		
 		<cfscript> 
 			var info = variables.requestObject.getAllFormUrlVars();
 			var arrKey = '';
@@ -109,14 +108,9 @@
 				);
 				i = i + 1;
 			}
-			if (formsubmission.formid==variables.requestObject.getVar('ccFormID')) {
-				sendFormContactvalues(
-					formsubmission=formsubmission
-				);
-			}			
 			
 			return formsubmission;
-		</cfscript>
+		</cfscript>			
 		
 	</cffunction>
 
@@ -233,34 +227,4 @@
 			 <cfreturn html>
 	</cffunction>
 	
-	<cffunction name="sendFormContactvalues">
-			<cfargument name="formsubmission" type="struct" required="true">	
-			<cfset arrEntry = listtoarray("#variables.requestObject.getVar('ccFormFields')#", ',', false) />
-			<cfset arrList  = listtoarray("#variables.requestObject.getVar('ccContactList')#", ',', false) />
-
-			<!--- Updates the basic XML retrieved through the createContactXml function with contact details from the form --->
-			<cfscript>
-				// Create contact object 
-				var constantcontact = createObject('component', 'resources.constantcontact.contacts').init(requestObject=variables.requestObject);
-				var newContact      = constantcontact.createContactXml();
-				var httpResponse    = '';
-				var temp = '';
-				
-				var temp = StructUpdate(newContact.entry.content.Contact.EmailAddress, "xmlText", "#formsubmission.answer[1]#");
-				
-				//for(i = 1; i lte ArrayLen(formsubmission.answer); i = i + 1)
-				//{
-				//		StructInsert(newContact.entry.content.Contact.XmlAttributes,"#arrEntry[i]#",formsubmission.answer[i]);
-				//}
-				for(i = 1; i lte ArrayLen(arrList); i = i + 1)
-				{ 
-					ArrayAppend(newContact.entry.content.Contact.ContactLists.XmlChildren, XmlElemNew(newContact, "ContactList"));
-					StructInsert(newContact.entry.content.Contact.ContactLists.ContactList[i].XmlAttributes, "id", "https://api.constantcontact.com/ws/customers/#variables.requestObject.getVar('ccUsername')#/lists/#arrList[i]#");
-				}
-				
-			    // Use addContact function to pass information to Constant Contact
-			    httpResponse = constantcontact.addContact(newContact);
-			</cfscript>
-				
-	</cffunction>	
 </cfcomponent>
